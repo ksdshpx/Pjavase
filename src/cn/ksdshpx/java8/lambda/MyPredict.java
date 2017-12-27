@@ -6,5 +6,6 @@ package cn.ksdshpx.java8.lambda;
  * Date: 2017/12/27
  * Time: 12:28
  */
-public interface MyPredict {
+public interface MyPredict<T> {
+    public abstract boolean test(T t);
 }

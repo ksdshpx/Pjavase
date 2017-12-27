@@ -6,5 +6,11 @@ package cn.ksdshpx.java8.lambda;
  * Date: 2017/12/27
  * Time: 13:17
  */
-public class FilterEmployeeByAge {
+public class FilterEmployeeByAge implements MyPredict<Employee> {
+
+    @Override
+    public boolean test(Employee employee) {
+        return employee.getAge() > 35;
+    }
+
 }

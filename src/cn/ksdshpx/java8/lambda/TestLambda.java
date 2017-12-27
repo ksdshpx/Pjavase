@@ -76,10 +76,10 @@ public class TestLambda {
     }
 
     //优化方式一:策略设计模式
-    public List<Employee> filterEmployees(List<Employee> list,MyPredict<Employee> myPredict){
+    public List<Employee> filterEmployees(List<Employee> list, MyPredict<Employee> myPredict) {
         List<Employee> emps = new ArrayList<>();
         for (Employee employee : list) {
-            if(myPredict.test(employee)){
+            if (myPredict.test(employee)) {
                 emps.add(employee);
             }
         }
@@ -87,13 +87,13 @@ public class TestLambda {
     }
 
     @Test
-    public void test5(){
-        List<Employee> list = filterEmployees(employees,new FilterEmployeeByAge());
+    public void test5() {
+        List<Employee> list = filterEmployees(employees, new FilterEmployeeByAge());
         for (Employee employee : list) {
             System.out.println(employee);
         }
         System.out.println("---------------");
-        list = filterEmployees(employees,new FilterEmployeeBySalary());
+        list = filterEmployees(employees, new FilterEmployeeBySalary());
         for (Employee employee : list) {
             System.out.println(employee);
         }
@@ -101,7 +101,7 @@ public class TestLambda {
 
     //优化方式二：匿名内部类
     @Test
-    public void test6(){
+    public void test6() {
         List<Employee> list = filterEmployees(employees, new MyPredict<Employee>() {
             @Override
             public boolean test(Employee employee) {
@@ -115,8 +115,20 @@ public class TestLambda {
 
     //优化方式三：lambda表达式
     @Test
-    public void test7(){
+    public void test7() {
         List<Employee> list = filterEmployees(this.employees, (e) -> e.getSalary() > 5000);
         list.forEach(System.out::println);
+    }
+
+    //优化方式四:Stream API
+    @Test
+    public void test8() {
+        employees.stream()
+                .filter((e) -> e.getSalary() > 5000)
+                .forEach(System.out::println);
+        System.out.println("-------------------");
+        employees.stream()
+                .map(Employee::getName)
+                .forEach(System.out::println);
     }
 }

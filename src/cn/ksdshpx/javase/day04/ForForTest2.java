@@ -69,5 +69,22 @@ public class ForForTest2 {
             }
             System.out.println();
         }
+        /*
+         *需求：打印
+         *         * * * * *
+         *          * * * *
+         *           * * *
+         *            * *
+         *             *
+         */
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < 5 - i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
     }
 }

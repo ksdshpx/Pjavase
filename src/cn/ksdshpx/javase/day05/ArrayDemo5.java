@@ -1,5 +1,7 @@
 package cn.ksdshpx.javase.day05;
 
+import java.util.Arrays;
+
 /**
  * Create with IntelliJ IDEA
  * Create by peng.x
@@ -11,7 +13,9 @@ public class ArrayDemo5 {
     public static void main(String[] args) {
         int[] arr = {23, 15, 78, 39, 68, 93, 10};
         int index = binarySearch(arr, 93);
+        int index2 = Arrays.binarySearch(arr, 93);
         System.out.println("index:" + index);
+        System.out.println("index:" + index2);
     }
 
     public static int binarySearch(int[] arr, int key) {

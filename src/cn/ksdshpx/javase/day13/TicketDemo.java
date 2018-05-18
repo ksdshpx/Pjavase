@@ -6,9 +6,11 @@ package cn.ksdshpx.javase.day13;
  * Date: 2018/5/17
  * Time: 18:58
  * Description:多线程示例--卖票
- * 多线程安全问题产生的原因：
- * 1，多个线程在操作共享的数据
- * 2，操作共享数据的线程代码有多条
+ *                  多线程安全问题产生的原因：
+ *                          1，多个线程在操作共享的数据
+ *                          2，操作共享数据的线程代码有多条
+ *
+ *                  同步的前提：必须有多个线程并使用同一个锁
  */
 class Ticket implements Runnable/*extends Thread*/ {
     private int num = 100;

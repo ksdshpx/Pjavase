@@ -6,6 +6,9 @@ package cn.ksdshpx.javase.day13;
  * Date: 2018/5/17
  * Time: 18:58
  * Description:多线程示例--卖票
+ * 多线程安全问题产生的原因：
+ * 1，多个线程在操作共享的数据
+ * 2，操作共享数据的线程代码有多条
  */
 class Ticket implements Runnable/*extends Thread*/ {
     private int num = 100;
@@ -13,8 +16,15 @@ class Ticket implements Runnable/*extends Thread*/ {
     @Override
     public void run() {
         while (true) {
-            if (num > 0) {
-                System.out.println(Thread.currentThread().getName() + "--sale--" + num--);
+            synchronized(this){
+                if (num > 0) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName() + "--sale--" + num--);
+                }
             }
         }
     }

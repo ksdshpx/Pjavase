@@ -11,6 +11,8 @@ package cn.ksdshpx.javase.day13;
  *                          2，操作共享数据的线程代码有多条
  *
  *                  同步的前提：必须有多个线程并使用同一个锁
+ *
+ *                  同步函数的锁是this,静态同步函数的锁是该函数所属的字节码文件对象（当前类名.class），同步代码块的锁是任意对象，建议使用同步代码块。
  */
 class Ticket implements Runnable/*extends Thread*/ {
     private int num = 100;

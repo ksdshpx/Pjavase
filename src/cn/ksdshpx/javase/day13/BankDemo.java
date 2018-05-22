@@ -25,21 +25,20 @@ class Bank {
     }*/
 
     // 同步函数解决线程安全问题
-    public void add(int num) {
-        synchronized (Bank.class){
-            sum = sum + num;
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("sum=" + sum);
+    public synchronized void add(int num) {
+        sum = sum + num;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        System.out.println("sum=" + sum);
     }
 }
 
-class Cus implements Runnable{
+class Cus implements Runnable {
     private Bank bank = new Bank();
+
     @Override
     public void run() {
         for (int i = 0; i < 3; i++) {

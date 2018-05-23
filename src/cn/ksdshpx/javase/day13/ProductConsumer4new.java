@@ -7,7 +7,17 @@ import java.util.concurrent.locks.*;
  * Create by peng.x
  * Date: 2018/5/23
  * Time: 10:57
- * Description:jdk1.5新特性--lock
+ * Description:JDK1.5新特性--Lock,一个锁上可以挂多个监视器对象Condition
+ *             Lock接口：出现替代了同步代码块或者同步函数，将同步的隐式锁操作变成了
+ *                      显示锁操作，同时更为灵活，可以一个锁上加上多个监视器。
+ *                      lock():获取锁
+ *                      unlock():释放锁，需要定义在finally{}代码块中
+ *             Condition接口：出现替代了Object类中的wait()、notify()、notifyAll()方法，
+ *                      将这些监视器方法进行了单独的封装，变成了Condition监视器对象，可以和
+ *                      任意锁进行组合。
+ *                      await():--->wait()
+ *                      signal():--->notify()
+ *                      signalAll():--->notifyAll()
  */
 //资源
 class Res4new {
@@ -16,13 +26,17 @@ class Res4new {
     private boolean flag;
 
     private Lock lock = new ReentrantLock();
-    private Condition condition = lock.newCondition();
+    //生产者监视器对象
+    private Condition producerCondition = lock.newCondition();
+    //消费者监视器对象
+    private Condition consumerCondition = lock.newCondition();
+
     public void set(String name) {
-        try{
+        try {
             lock.lock();
             while (flag) {
                 try {
-                    condition.await();
+                    producerCondition.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -31,26 +45,26 @@ class Res4new {
             count++;
             System.out.println(Thread.currentThread().getName() + "..生产者.." + this.name);
             this.flag = true;
-            condition.signalAll();
-        }finally {
+            consumerCondition.signal();
+        } finally {
             lock.unlock();
         }
     }
 
     public void out() {
-        try{
+        try {
             lock.lock();
             while (!flag) {
                 try {
-                    condition.await();
+                    consumerCondition.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             System.out.println(Thread.currentThread().getName() + ".....消费者......" + this.name);
             this.flag = false;
-            condition.signalAll();
-        }finally {
+            producerCondition.signal();
+        } finally {
             lock.unlock();
         }
     }
@@ -82,7 +96,7 @@ class Consumer4new implements Runnable {
 
     @Override
     public void run() {
-        while (true){
+        while (true) {
             res.out();
         }
     }

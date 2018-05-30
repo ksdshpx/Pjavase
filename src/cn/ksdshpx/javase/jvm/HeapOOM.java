@@ -8,7 +8,7 @@ import java.util.List;
  * Create by peng.x
  * Date: 2018/1/9
  * Time: 19:58
- * Description:测试堆内存溢出  -Xms20m -Xmx20m -XX:+HeapDumpOnOutOfMemeoryError
+ * Description:测试堆内存溢出  -Xms20m -Xmx20m -XX:+HeapDumpOnOutOfMemoryError
  */
 public class HeapOOM {
     static class OOMObject{

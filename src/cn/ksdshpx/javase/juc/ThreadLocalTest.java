@@ -1,7 +1,5 @@
 package cn.ksdshpx.javase.juc;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -9,11 +7,11 @@ import java.util.Random;
  * Create by peng.x
  * Date: 2018/5/31
  * Time: 14:01
- * Description:线程范围内的共享变量
+ * Description:ThreadLocal类的使用
  */
-public class ThreadScopeShareData {
-    private static int data = 0;
-    private static Map<Thread, Integer> threadMap = new HashMap<>();
+public class ThreadLocalTest {
+
+    private static ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
 
     static class A {
         public void get(int data) {
@@ -32,11 +30,11 @@ public class ThreadScopeShareData {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    data = new Random().nextInt();
+                    int data = new Random().nextInt();
                     System.out.println(Thread.currentThread().getName() + " put data:" + data);
-                    threadMap.put(Thread.currentThread(), data);
-                    new A().get(threadMap.get(Thread.currentThread()));
-                    new B().get(threadMap.get(Thread.currentThread()));
+                    threadLocal.set(data);
+                    new A().get(threadLocal.get());
+                    new B().get(threadLocal.get());
                 }
             }
             ).start();

@@ -21,12 +21,12 @@ public class CountDownLatchTest {
                 @Override
                 public void run() {
                     try {
-                        System.out.println("线程"+Thread.currentThread().getName()+"正在等待命令！");
+                        System.out.println("线程" + Thread.currentThread().getName() + "正在等待命令！");
                         cdOrder.await();
-                        System.out.println("线程"+Thread.currentThread().getName()+"接收到命令！");
-                        Thread.sleep((long) (Math.random()*1000));
+                        System.out.println("线程" + Thread.currentThread().getName() + "接收到命令！");
+                        Thread.sleep((long) (Math.random() * 1000));
                         cdAnswer.countDown();
-                        System.out.println("线程"+Thread.currentThread().getName()+"回应命令处理结果！");
+                        System.out.println("线程" + Thread.currentThread().getName() + "回应命令处理结果！");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -34,15 +34,16 @@ public class CountDownLatchTest {
             });
         }
         try {
-            Thread.sleep((long) (Math.random()*1000));
-            System.out.println("线程"+Thread.currentThread().getName()+"即将发布命令");
-            System.out.println("线程"+Thread.currentThread().getName()+"发布命令");
+            Thread.sleep((long) (Math.random() * 1000));
+            System.out.println("线程" + Thread.currentThread().getName() + "即将发布命令");
+            System.out.println("线程" + Thread.currentThread().getName() + "发布命令");
             cdOrder.countDown();
-            System.out.println("线程"+Thread.currentThread().getName()+"等待命令处理完成");
+            System.out.println("线程" + Thread.currentThread().getName() + "等待命令处理完成");
             cdAnswer.await();
-            System.out.println("线程"+Thread.currentThread().getName()+"收到命令处理结果");
+            System.out.println("线程" + Thread.currentThread().getName() + "收到命令处理结果");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        threadPool.shutdown();
     }
 }

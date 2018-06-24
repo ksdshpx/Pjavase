@@ -2,3 +2,17 @@
 /.idea
 /out
 /lib
+/java_pid10328.outbound.index
+/java_pid10328.threads
+/java_pid10328_Leak_Suspects.zip
+/java_pid10328.a2s.index
+/java_pid10328.domIn.index
+/java_pid10328.domOut.index
+/java_pid10328.hprof
+/java_pid10328.i2sv2.index
+/java_pid10328.idx.index
+/java_pid10328.inbound.index
+/java_pid10328.index
+/java_pid10328.o2c.index
+/java_pid10328.o2hprof.index
+/java_pid10328.o2ret.index

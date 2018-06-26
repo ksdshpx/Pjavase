@@ -5,7 +5,7 @@ package cn.ksdshpx.javase.pattern.proxy;
  * Create by peng.x
  * Date: 2018/6/25
  * Time: 14:34
- * Description:
+ * Description:静态代理测试
  */
 public class StaticProxyTest {
     public static void main(String[] args) {
@@ -16,6 +16,6 @@ public class StaticProxyTest {
         ISomeService proxy = new ServiceProxy(target);
         String proxyResult = proxy.doFirst();
         System.out.println("proxyResult:" + proxyResult);
-        proxy.doSecond();
+        //proxy.doSecond();
     }
 }

@@ -13,5 +13,11 @@ public class MyTest {
         IProgrammer txProgrammer = new TxProgrammer();
         System.out.println(qjdCooker.cook());
         System.out.println(txProgrammer.program());
+        Object[] workers = {qjdCooker, txProgrammer};
+        IWorkerAdapt adapt = new WorkerAdapt();
+        for (Object worker : workers) {
+            String workContent = adapt.work(worker);
+            System.out.println(workContent);
+        }
     }
 }

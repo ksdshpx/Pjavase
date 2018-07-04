@@ -9,4 +9,5 @@ package cn.ksdshpx.javase.pattern.adapter;
  */
 public interface IWorkerAdapt {
     public abstract String work(Object worker );
+    public abstract boolean supports(Object worker);
 }

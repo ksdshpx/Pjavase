@@ -18,4 +18,9 @@ public class WorkerAdapt implements IWorkerAdapt {
         }
         return workContent;
     }
+
+    @Override
+    public boolean supports(Object worker) {
+        return false;
+    }
 }

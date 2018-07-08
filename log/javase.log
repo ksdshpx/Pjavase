@@ -1,0 +1,9 @@
+2018-07-02 09:43:26 [FATAL] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(15) -fatal msg
+  2018-07-02 09:43:26 [ERROR] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(16) -error msg
+  2018-07-02 09:43:26 [ WARN] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(17) -warn msg
+  2018-07-02 09:43:26 [ INFO] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(18) -info msg
+  2018-07-02 11:10:07 [FATAL] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(17) -fatal msg
+  2018-07-02 11:10:07 [ERROR] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(18) -error msg
+  2018-07-02 11:10:07 [ WARN] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(19) -warn msg
+  2018-07-02 11:10:07 [ INFO] - cn.ksdshpx.javase.log4j.MyTest -MyTest.java(20) -info msg
+  

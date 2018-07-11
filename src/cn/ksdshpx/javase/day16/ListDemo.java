@@ -2,6 +2,7 @@ package cn.ksdshpx.javase.day16;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Create with IntelliJ IDEA
@@ -20,8 +21,38 @@ public class ListDemo {
         System.out.println("remove:" + list.remove(2));
         list.add(1, "abc9");
         System.out.println("set:" + list.set(1, "abc8"));
-        System.out.println("get:"+list.get(0));
-        System.out.println("sublist:"+list.subList(1,3));
+        System.out.println("get:" + list.get(0));
+        System.out.println("sublist:" + list.subList(1, 3));
+        System.out.println(list);
+        //list特有的取出方式
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+        System.out.println("----------------------");
+        //并发修改异常 ConcurrentModificationException
+        /*Iterator iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Object obj = iterator.next();
+            if ("abc8".equals(obj)) {
+                list.add("abc6");
+            } else {
+                System.out.println(obj);
+            }
+        }*/
+
+        System.out.println("-----+++++-----+++++------");
+        //使用ListIterator解决并发修改异常
+        ListIterator listIterator = list.listIterator();
+        while (listIterator.hasNext()) {
+            Object obj = listIterator.next();
+            if ("abc8".equals(obj)) {
+                listIterator.add("abc6");
+            } else {
+                System.out.println(obj);
+            }
+        }
+        System.out.println("hasNext:" + listIterator.hasNext());//false
+        System.out.println("hasPrevious:" + listIterator.hasPrevious());//true
         System.out.println(list);
     }
 }

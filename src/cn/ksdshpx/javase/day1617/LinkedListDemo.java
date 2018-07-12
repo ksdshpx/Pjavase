@@ -21,5 +21,13 @@ public class LinkedListDemo {
         System.out.println(link.getFirst());//abc4
         System.out.println(link.removeFirst());//获取第一个但删除 abc4
         System.out.println(link.removeFirst());//abc3
+        System.out.println("----------------------------------");
+        MyQueue queue = new MyQueue(link);
+        queue.add("aaa");
+        queue.add("bbb");
+        queue.add("ccc");
+        while (!queue.isEmpty()){
+            System.out.println(queue.get());
+        }
     }
 }

@@ -8,5 +8,13 @@ package cn.ksdshpx.javase.enhance;
  * Description:定义枚举类
  */
 public enum WeekDay {
-    SUN,MON,TUE,WED,THI,FRI,SAT;
+    SUN(1), MON, TUE, WED, THI, FRI, SAT;
+
+    private WeekDay() {
+        System.out.println("first...");
+    }
+
+    private WeekDay(int day) {
+        System.out.println("second...");
+    }
 }

@@ -17,5 +17,8 @@ public class EnumTest {
         System.out.println(weekDay.ordinal());
         System.out.println(WeekDay.valueOf("WED"));
         System.out.println(WeekDay.values().length);
+        System.out.println("----------------");
+        TrafficLamp lamp = TrafficLamp.RED;
+        System.out.println(lamp.nextLamp().name());
     }
 }

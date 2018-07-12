@@ -1,4 +1,4 @@
-package cn.ksdshpx.javase.day16;
+package cn.ksdshpx.javase.day1617;
 
 /**
  * Create with IntelliJ IDEA

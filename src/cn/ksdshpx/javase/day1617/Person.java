@@ -9,7 +9,7 @@ import java.util.Objects;
  * Time: 15:10
  * Description:Person实体类，测试集合功能用
  */
-public class Person {
+public class Person implements Comparable {
     private String name;
     private int age;
 
@@ -57,5 +57,11 @@ public class Person {
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Person person = (Person) o;
+        return this.getAge() == person.getAge() ? this.getName().compareTo(person.getName()) : this.getAge() - person.getAge();
     }
 }

@@ -9,7 +9,7 @@ import java.util.Objects;
  * Time: 15:27
  * Description:
  */
-public class Student {
+public class Student implements Comparable {
     private String name;
     private int age;
 
@@ -58,5 +58,12 @@ public class Student {
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Student student = (Student) o;
+        int compareResult = this.getAge() - student.getAge();
+        return compareResult == 0 ? this.getName().compareTo(student.getName()) : compareResult;
     }
 }

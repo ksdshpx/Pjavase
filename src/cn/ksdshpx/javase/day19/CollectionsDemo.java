@@ -17,6 +17,14 @@ public class CollectionsDemo {
         list.add("nbaad");
         list.add("cbad");
         list.add("difddf");
+        System.out.println("max=" + Collections.max(list));
+        System.out.println("maxbylength=" + Collections.max(list, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                int temp = o1.length() - o2.length();
+                return temp == 0 ? o1.compareTo(o2) : temp;
+            }
+        }));
         //Collections.sort(list);
         //mySort(list);
         mySort2(list, new Comparator<String>() {
@@ -29,6 +37,10 @@ public class CollectionsDemo {
         for (Iterator<String> iterator = list.iterator(); iterator.hasNext(); ) {
             System.out.println(iterator.next());
         }
+
+        //二分查找（必须有序）
+        int index = Collections.binarySearch(list, "abd");
+        System.out.println("index = " + index);
     }
 
     public static <T extends Comparable<? super T>> void mySort(List<T> list) {

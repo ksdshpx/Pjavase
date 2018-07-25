@@ -17,6 +17,7 @@ public class CollectionsDemo {
         list.add("nbaad");
         list.add("cbad");
         list.add("difddf");
+        Collections.replaceAll(list, "cbad", "nbad");
         System.out.println("max=" + Collections.max(list));
         System.out.println("maxbylength=" + Collections.max(list, new Comparator<String>() {
             @Override
@@ -34,13 +35,36 @@ public class CollectionsDemo {
                 return temp == 0 ? o1.compareTo(o2) : temp;
             }
         });
+        //打乱集合中元素的顺序，洗牌案例中可用
+        Collections.shuffle(list);
         for (Iterator<String> iterator = list.iterator(); iterator.hasNext(); ) {
             System.out.println(iterator.next());
         }
+        //填充
+        Collections.fill(list,"zhangsss");
+        System.out.println(list);
 
         //二分查找（必须有序）
         int index = Collections.binarySearch(list, "abd");
         System.out.println("index = " + index);
+
+        System.out.println("--------------------------------");
+        //实现集合中的元素倒叙
+        //法一：自己实现比较器
+        /*Set<String> treeSet = new TreeSet<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });*/
+        //法二：利用Collections的方法
+        Set<String> treeSet = new TreeSet<>(Collections.reverseOrder());
+        treeSet.add("abc");
+        treeSet.add("hahah");
+        treeSet.add("zzz");
+        treeSet.add("kbd");
+        treeSet.add("cba");
+        System.out.println(treeSet);
     }
 
     public static <T extends Comparable<? super T>> void mySort(List<T> list) {

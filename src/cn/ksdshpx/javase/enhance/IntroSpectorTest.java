@@ -1,6 +1,8 @@
 package cn.ksdshpx.javase.enhance;
 
+import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -21,6 +23,17 @@ public class IntroSpectorTest {
         System.out.println("------------------------");
         int value = 88;
         setProperty(rp, propertyName, value);
+        System.out.println(rp.getX());
+        System.out.println("------------------------");
+        BeanInfo beanInfo = Introspector.getBeanInfo(rp.getClass());
+        PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            if(propertyDescriptor.getName().equals(propertyName)){
+                Method methodGetX = propertyDescriptor.getReadMethod();
+                Object retVal2 = methodGetX.invoke(rp);
+                System.out.println(retVal2);
+            }
+        }
         System.out.println(rp.getX());
     }
 

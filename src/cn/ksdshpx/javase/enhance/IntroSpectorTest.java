@@ -1,5 +1,7 @@
 package cn.ksdshpx.javase.enhance;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -34,6 +36,10 @@ public class IntroSpectorTest {
                 System.out.println(retVal2);
             }
         }
+        System.out.println("--------------------");
+        System.out.println(BeanUtils.getProperty(rp,"x"));
+        System.out.println("--------------------");
+        BeanUtils.setProperty(rp,"x",99);
         System.out.println(rp.getX());
     }
 

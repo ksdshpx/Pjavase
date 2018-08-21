@@ -45,7 +45,9 @@ public class TestMySql {
         ResultSet rs = null;
         try {
             //1.加载驱动
-            Class.forName(driverName);
+            //Class.forName(driverName);
+            //System.setProperty("jdbc.drivers",driverName);
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             //2.得到连接
             conn = DriverManager.getConnection(url, username, password);
             //3.创建Statement

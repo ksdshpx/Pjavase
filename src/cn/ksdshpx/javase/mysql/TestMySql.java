@@ -87,4 +87,65 @@ public class TestMySql {
             }
         }
     }
+
+    @Test
+    public void test3() {
+        //四大配置参数
+        String driverName = "com.mysql.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/mydb1";
+        String username = "root";
+        String password = "root123";
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            //1.加载驱动
+            //Class.forName(driverName);
+            //System.setProperty("jdbc.drivers",driverName);
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            //2.得到连接
+            conn = DriverManager.getConnection(url, username, password);
+            //3.创建Statement
+            stmt = conn.createStatement();
+            //4.通过Statement对象发送sql语句
+            String sql = "select * from emp";
+            rs = stmt.executeQuery(sql);
+            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            for (int i = 1; i <=columnCount; i++) {
+                System.out.println(resultSetMetaData.getColumnName(i));
+            }
+            System.out.println("----------------------------------");
+            while (rs.next()) {
+                int empno = rs.getInt("empno");
+                String ename = rs.getString("ename");
+                int deptno = rs.getInt("deptno");
+                System.out.println(empno + "---" + ename + "---" + deptno);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(stmt!=null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

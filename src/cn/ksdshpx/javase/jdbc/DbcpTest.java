@@ -16,6 +16,7 @@ import java.sql.SQLException;
 public class DbcpTest {
     @Test
     public void test(){
+        Connection conn = null;
         try {
             //1.创建dbcp数据库连接池对象
             BasicDataSource dataSource = new BasicDataSource();
@@ -29,10 +30,18 @@ public class DbcpTest {
             dataSource.setInitialSize(10);
             dataSource.setMaxWait(1000);
             //4.得到Connection
-            Connection conn = dataSource.getConnection();
+            conn = dataSource.getConnection();
             System.out.println(conn.getClass().getName());
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

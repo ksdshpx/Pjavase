@@ -1,5 +1,7 @@
 package cn.ksdshpx.javase.jdbc;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -17,6 +19,7 @@ public final class JdbcUtils {
     private static String url;
     private static String username;
     private static String password;
+    private static ComboPooledDataSource dataSource;
 
     private JdbcUtils() {
     }
@@ -33,6 +36,7 @@ public final class JdbcUtils {
             password = prop.getProperty("password");
             //加载驱动(只需要加载一次，所以放在静态代码块中)
             Class.forName(driverName);
+            dataSource = new ComboPooledDataSource();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("加载驱动失败!");
         } catch (IOException e) {
@@ -41,7 +45,8 @@ public final class JdbcUtils {
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
+//        return DriverManager.getConnection(url, username, password);
+        return dataSource.getConnection();
     }
 
     public static void close(Connection conn, Statement stmt, ResultSet rs) {

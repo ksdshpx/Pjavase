@@ -13,6 +13,11 @@ import java.lang.annotation.Target;
  * Description:定义注解类
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.TYPE})
 public @interface Ksdshpx {
+    String color() default "blue";
+    String value();
+    int[] arrayAttr() default {1,2,3};
+    TrafficLamp lamp() default TrafficLamp.RED;
+    MetaAnnotation annotationAttr() default @MetaAnnotation("itcast");
 }

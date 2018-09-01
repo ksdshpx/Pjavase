@@ -5,7 +5,7 @@
         <!--四大参数配置-->
         <property name="driverClass">com.mysql.jdbc.Driver</property>
         <property name="jdbcUrl">
-            <![CDATA[jdbc:mysql://127.0.0.1:3306/mydb1?useUnicode=true&characterEncoding=UTF-8]]>
+            <![CDATA[jdbc:mysql://127.0.0.1:3306/mydb1?useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true]]>
         </property>
         <property name="user">root</property>
         <property name="password">root123</property>

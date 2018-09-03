@@ -25,6 +25,25 @@ public class AccountService {
      * @param to
      * @param money
      */
+    public void zhuanZhang2(Account from, Account to, int money) {
+        try {
+            //开启事务
+            JdbcUtils.beginTrasaction();
+            accountDao.updateBalanceByThreadLocal(from, -money);
+            accountDao.updateBalanceByThreadLocal(to, money);
+            //提交事务
+            JdbcUtils.commitTrasaction();
+        } catch (Exception e) {
+            //事务回滚
+            try {
+                JdbcUtils.rollbackTrasaction();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            throw new RuntimeException(e);
+        }
+    }
+
     public void zhuanZhang(Account from, Account to, int money) {
         Connection conn = null;
         try {

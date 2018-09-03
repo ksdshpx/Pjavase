@@ -13,5 +13,6 @@ import java.sql.Connection;
  */
 public interface AccountDao {
     public abstract void updateBalance(Connection conn,Account account, int money);
+    public abstract void updateBalanceByThreadLocal(Account account, int money);
     public abstract Account findAccountById(Connection conn,Integer id);
 }

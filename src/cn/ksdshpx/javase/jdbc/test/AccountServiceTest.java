@@ -21,6 +21,6 @@ public class AccountServiceTest {
         from.setName("zhangSan");
         Account to = new Account();
         to.setName("liSi");
-        accountService.zhuanZhang(from, to, 10);
+        accountService.zhuanZhang2(from, to, 10);
     }
 }

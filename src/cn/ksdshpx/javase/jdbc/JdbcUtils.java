@@ -20,6 +20,7 @@ public final class JdbcUtils {
     private static String username;
     private static String password;
     private static ComboPooledDataSource dataSource;
+    private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
     private JdbcUtils() {
     }
@@ -46,7 +47,7 @@ public final class JdbcUtils {
 
     public static Connection getConnection() throws SQLException {
 //        return DriverManager.getConnection(url, username, password);
-        return dataSource.getConnection();
+        return threadLocal.get() == null ? dataSource.getConnection() : threadLocal.get();
     }
 
     public static void close(Connection conn, Statement stmt, ResultSet rs) {
@@ -73,5 +74,42 @@ public final class JdbcUtils {
                 }
             }
         }
+    }
+
+    /**
+     * 开启事务
+     * @throws SQLException
+     */
+    public static void beginTrasaction() throws SQLException {
+        if(threadLocal.get() != null){
+            throw new RuntimeException("事务已经开启！");
+        }
+        Connection conn = getConnection();
+        conn.setAutoCommit(false);
+        threadLocal.set(conn);
+    }
+
+    /**
+     * 提交事务
+     * @throws SQLException
+     */
+    public static void commitTrasaction() throws SQLException {
+        if(threadLocal.get() == null){
+            throw new RuntimeException("事务尚未开启！");
+        }
+        Connection conn = getConnection();
+        conn.commit();
+        conn.close();
+        threadLocal.remove();
+    }
+
+    public static void rollbackTrasaction() throws SQLException {
+        if(threadLocal.get() == null){
+            throw new RuntimeException("事务尚未开启！");
+        }
+        Connection conn = getConnection();
+        conn.rollback();
+        conn.close();
+        threadLocal.remove();
     }
 }

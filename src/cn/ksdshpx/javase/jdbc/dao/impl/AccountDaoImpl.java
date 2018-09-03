@@ -1,6 +1,7 @@
 package cn.ksdshpx.javase.jdbc.dao.impl;
 
 import cn.ksdshpx.javase.jdbc.Exception.DaoException;
+import cn.ksdshpx.javase.jdbc.JdbcUtils;
 import cn.ksdshpx.javase.jdbc.dao.AccountDao;
 import cn.ksdshpx.javase.jdbc.domain.Account;
 
@@ -21,6 +22,30 @@ public class AccountDaoImpl implements AccountDao {
     public void updateBalance(Connection conn, Account account, int money) {
         PreparedStatement pstmt = null;
         try {
+            String sql = "UPDATE t_account SET balance = balance + ? WHERE name = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, money);
+            pstmt.setString(2, account.getName());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void updateBalanceByThreadLocal(Account account, int money) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = JdbcUtils.getConnection();
             String sql = "UPDATE t_account SET balance = balance + ? WHERE name = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, money);

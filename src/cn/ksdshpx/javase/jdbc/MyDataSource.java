@@ -58,8 +58,10 @@ public class MyDataSource {
     public Connection createConnection() throws SQLException {
         currSize++;
         Connection realConnection = DriverManager.getConnection(url, username, password);
-        MyConnection myConnection = new MyConnection(this, realConnection);
-        return myConnection;
+        //MyConnection myConnection = new MyConnection(this, realConnection);
+        //return myConnection;
+        ProxyConnection proxyConnection = new ProxyConnection(this,realConnection);
+        return proxyConnection.getConnection();
     }
 
     public Connection getConnection() throws SQLException {

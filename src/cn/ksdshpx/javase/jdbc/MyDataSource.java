@@ -84,7 +84,7 @@ public class MyDataSource {
     public static void main(String[] args) throws SQLException {
         for (int i = 0; i < 30; i++) {
             Connection conn = MyJdbcUtils.getConnection();
-            System.out.println(conn);
+            System.out.println(conn.getClass().getName());
             conn.close();
         }
     }

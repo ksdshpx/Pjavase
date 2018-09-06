@@ -34,7 +34,7 @@ public class UserDaoTest {
 
     @Test
     public void testLogin() {
-        User user = userDao.login("zhangSan", null);
+        User user = userDao.findUser("zhangSan", null);
         System.out.println(user);
     }
 

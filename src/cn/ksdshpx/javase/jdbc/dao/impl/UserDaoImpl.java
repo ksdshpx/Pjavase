@@ -71,27 +71,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     @Override
-    public User login(String username, String password) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        User user = null;
-        try {
-            conn = JdbcUtils.getConnection();
-            String sql = "SELECT id,name,birthday,money FROM t_useruser WHERE name = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, username);
-            rs = pstmt.executeQuery();
-            user = new User();
-            while (rs.next()) {
-                mappingUser(rs, user);
-            }
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage(), e);
-        } finally {
-            JdbcUtils.close(conn, pstmt, rs);
-        }
-        return user;
+    public User findUser(String username, String password) {
+        String sql = "SELECT id,name,birthday,money FROM t_useruser WHERE name = ?";
+        Object[] params = new Object[]{username};
+        return (User) super.find(sql, params);
     }
 
     @Override
@@ -106,5 +89,15 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         user.setName(rs.getString("name"));
         user.setBirthday(rs.getDate("birthday"));
         user.setMoney(rs.getFloat("money"));
+    }
+
+    @Override
+    protected Object rowMapping(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setName(rs.getString("name"));
+        user.setBirthday(rs.getDate("birthday"));
+        user.setMoney(rs.getFloat("money"));
+        return user;
     }
 }

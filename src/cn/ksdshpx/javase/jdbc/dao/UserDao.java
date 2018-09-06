@@ -14,7 +14,7 @@ public interface UserDao {
 
     public abstract User getUser(String id);
 
-    public abstract User login(String username, String password);
+    public abstract User findUser(String username, String password);
 
     public abstract int update(User user);
 

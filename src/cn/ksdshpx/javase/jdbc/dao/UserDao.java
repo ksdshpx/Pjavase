@@ -16,7 +16,7 @@ public interface UserDao {
 
     public abstract User login(String username, String password);
 
-    public abstract void update(User user);
+    public abstract int update(User user);
 
-    public abstract void delete(User user);
+    public abstract int delete(User user);
 }

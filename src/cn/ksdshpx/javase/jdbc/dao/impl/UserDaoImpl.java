@@ -3,6 +3,7 @@ package cn.ksdshpx.javase.jdbc.dao.impl;
 import cn.ksdshpx.javase.jdbc.Exception.DaoException;
 import cn.ksdshpx.javase.jdbc.JdbcUtils;
 import cn.ksdshpx.javase.jdbc.dao.UserDao;
+import cn.ksdshpx.javase.jdbc.dao.impl.refactor.AbstractDao;
 import cn.ksdshpx.javase.jdbc.domain.User;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  * Time: 10:49
  * Description:Dao层实现
  */
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends AbstractDao implements UserDao {
     @Override
     public void add(User user) {
         Connection conn = null;
@@ -39,21 +40,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(User user) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            conn = JdbcUtils.getConnection();
-            String sql = "DELETE FROM t_useruser WHERE id = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, user.getId());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage(), e);
-        } finally {
-            JdbcUtils.close(conn, pstmt, rs);
-        }
+    public int delete(User user) {
+        String sql = "DELETE FROM t_useruser WHERE id = ?";
+        Object[] params = new Object[]{user.getId()};
+        return super.update(sql, params);
     }
 
     @Override
@@ -105,24 +95,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(User user) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            conn = JdbcUtils.getConnection();
-            String sql = "UPDATE t_useruser SET name = ?,birthday = ?,money = ? WHERE id = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, user.getName());
-            pstmt.setDate(2, new java.sql.Date(user.getBirthday().getTime()));
-            pstmt.setFloat(3, user.getMoney());
-            pstmt.setInt(4, user.getId());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage(), e);
-        } finally {
-            JdbcUtils.close(conn, pstmt, rs);
-        }
+    public int update(User user) {
+        String sql = "UPDATE t_useruser SET name = ?,birthday = ?,money = ? WHERE id = ?";
+        Object[] params = new Object[]{user.getName(), user.getBirthday(), user.getMoney(), user.getId()};
+        return super.update(sql, params);
     }
 
     private void mappingUser(ResultSet rs, User user) throws SQLException {

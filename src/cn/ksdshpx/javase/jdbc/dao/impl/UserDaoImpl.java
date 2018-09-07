@@ -78,6 +78,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     @Override
+    public String findUserName(String id) {
+        return null;
+    }
+
+    @Override
     public int update(User user) {
         String sql = "UPDATE t_useruser SET name = ?,birthday = ?,money = ? WHERE id = ?";
         Object[] params = new Object[]{user.getName(), user.getBirthday(), user.getMoney(), user.getId()};

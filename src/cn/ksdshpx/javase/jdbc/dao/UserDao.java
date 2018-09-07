@@ -16,6 +16,8 @@ public interface UserDao {
 
     public abstract User findUser(String username, String password);
 
+    public abstract String findUserName(String id);
+
     public abstract int update(User user);
 
     public abstract int delete(User user);

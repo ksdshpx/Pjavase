@@ -2,6 +2,7 @@ package cn.ksdshpx.javase.jdbc;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -45,6 +46,10 @@ public final class JdbcUtils {
         }
     }
 
+    public static DataSource getDataSource() {
+        return dataSource;
+    }
+
     public static Connection getConnection() throws SQLException {
 //        return DriverManager.getConnection(url, username, password);
         return threadLocal.get() == null ? dataSource.getConnection() : threadLocal.get();
@@ -78,10 +83,11 @@ public final class JdbcUtils {
 
     /**
      * 开启事务
+     *
      * @throws SQLException
      */
     public static void beginTrasaction() throws SQLException {
-        if(threadLocal.get() != null){
+        if (threadLocal.get() != null) {
             throw new RuntimeException("事务已经开启！");
         }
         Connection conn = getConnection();
@@ -91,10 +97,11 @@ public final class JdbcUtils {
 
     /**
      * 提交事务
+     *
      * @throws SQLException
      */
     public static void commitTrasaction() throws SQLException {
-        if(threadLocal.get() == null){
+        if (threadLocal.get() == null) {
             throw new RuntimeException("事务尚未开启！");
         }
         Connection conn = getConnection();
@@ -104,7 +111,7 @@ public final class JdbcUtils {
     }
 
     public static void rollbackTrasaction() throws SQLException {
-        if(threadLocal.get() == null){
+        if (threadLocal.get() == null) {
             throw new RuntimeException("事务尚未开启！");
         }
         Connection conn = getConnection();

@@ -1,4 +1,5 @@
-import cn.ksdshpx.javase.jdbc.JdbcUtils;
+package cn.ksdshpx.javase.jdbc;
+
 import cn.ksdshpx.javase.jdbc.domain.Account;
 
 import java.lang.reflect.InvocationTargetException;

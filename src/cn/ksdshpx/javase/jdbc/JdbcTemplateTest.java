@@ -3,11 +3,14 @@ package cn.ksdshpx.javase.jdbc;
 import cn.ksdshpx.javase.jdbc.domain.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +37,14 @@ public class JdbcTemplateTest {
 
         List<Map<String, Object>> mapList = findUsersForMapList("3");
         System.out.println("mapList:" + mapList);
+
+        Stu stu = new Stu();
+        stu.setSname("JdbcTemplate");
+        stu.setAge(88);
+        stu.setGender("male");
+        //addStu(stu);
+        String stuName = findStuNameById("10001");
+        System.out.println("stuName:" + stuName);
     }
 
     public static User findUser(String username) throws DataAccessException {
@@ -90,5 +101,34 @@ public class JdbcTemplateTest {
         Object[] params = new Object[]{id};
         List<Map<String, Object>> maps = template.queryForList(sql, params);
         return maps;
+    }
+
+    public static void addStu(final Stu stu) {
+        String callSql = "{call addStu(?,?,?,?)}";
+        template.execute(callSql, new CallableStatementCallback<Object>() {
+            @Override
+            public Object doInCallableStatement(CallableStatement callableStatement) throws SQLException, DataAccessException {
+                callableStatement.registerOutParameter(1, Types.INTEGER);
+                callableStatement.setString(2, stu.getSname());
+                callableStatement.setInt(3, stu.getAge());
+                callableStatement.setString(4, stu.getGender());
+                callableStatement.executeUpdate();
+                return null;
+            }
+        });
+    }
+
+    public static String findStuNameById(final String id) {
+        String callSql = "{call findStuNameById(?,?)}";
+        String stuName = template.execute(callSql, new CallableStatementCallback<String>() {
+            @Override
+            public String doInCallableStatement(CallableStatement callableStatement) throws SQLException, DataAccessException {
+                callableStatement.setString(1, id);
+                callableStatement.registerOutParameter(2, Types.VARCHAR);
+                callableStatement.execute();
+                return callableStatement.getString(2);
+            }
+        });
+        return stuName;
     }
 }

@@ -17,7 +17,13 @@ public class MyArrayList<E> {
     }
 
     public MyArrayList(int capacity) {
-        elements = new Object[capacity];
+        if (capacity < 0) {
+            throw new RuntimeException("容器容量不能为负数！");
+        } else if (capacity == 0) {
+            elements = new Object[DEFAULT_CAPACITY];
+        } else {
+            elements = new Object[capacity];
+        }
     }
 
     public void add(E element) {
@@ -28,6 +34,22 @@ public class MyArrayList<E> {
             elements = newElements;
         }
         elements[size++] = element;
+    }
+
+    public void checkRange(int index) {
+        if (index < 0 || index > size - 1) {
+            throw new RuntimeException("索引值不合法:" + index);
+        }
+    }
+
+    public void set(int index, E element) {
+        checkRange(index);
+        elements[index] = element;
+    }
+
+    public E get(int index) {
+        checkRange(index);
+        return (E) elements[index];
     }
 
     public String toString() {
@@ -49,6 +71,7 @@ public class MyArrayList<E> {
         for (int i = 0; i < 100; i++) {
             arrayList.add("sxt" + i);
         }
+        System.out.println(arrayList.get(99));
         System.out.println(arrayList);
     }
 }

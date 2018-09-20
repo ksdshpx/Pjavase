@@ -14,17 +14,28 @@ import java.security.spec.KeySpec;
  * Description:对称加密-->DES加密和解密
  */
 public class DESCrypt {
-    private static final String ALGORITHM = "algorithm";
+    private static final String ALGORITHM = "DES";
 
     public static void main(String[] args) {
         //加密原文
         String input = "欢迎来到上海期货交易所";
         //秘钥
         String password = "12345678";
-        encrypt(input, password);
+        byte[] encryptBytes = encrypt(input, password);
+        System.out.println("加密:" + new String(encryptBytes));
+        byte[] decryptBytes = decrypt(encryptBytes, password);
+        System.out.println("解密:" + new String(decryptBytes));
     }
 
-    private static void encrypt(String input, String password) {
+    /**
+     * DES加密
+     *
+     * @param input
+     * @param password
+     * @return
+     */
+    private static byte[] encrypt(String input, String password) {
+        byte[] encrypt = null;
         try {
             //加密算法三部曲
             //1.创建Cipher对象
@@ -34,15 +45,23 @@ public class DESCrypt {
             KeySpec keySpec = new DESKeySpec(password.getBytes());//秘钥规则对象
             Key key = secretKeyFactory.generateSecret(keySpec);//秘钥对象
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            //3.加密/解密
-            byte[] encrypt = cipher.doFinal(input.getBytes());
-            System.out.println("DES加密：" + new String(encrypt));
+            //3.加密
+            encrypt = cipher.doFinal(input.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return encrypt;
     }
 
-    private static void decrypt(String input, String password) {
+    /**
+     * DES解密
+     *
+     * @param input
+     * @param password
+     * @return
+     */
+    private static byte[] decrypt(byte[] input, String password) {
+        byte[] decrypt = null;
         try {
             //加密算法三部曲
             //1.创建Cipher对象
@@ -52,11 +71,11 @@ public class DESCrypt {
             KeySpec keySpec = new DESKeySpec(password.getBytes());//秘钥规则对象
             Key key = secretKeyFactory.generateSecret(keySpec);//秘钥对象
             cipher.init(Cipher.DECRYPT_MODE, key);
-            //3.加密/解密
-            byte[] decrypt = cipher.doFinal(input.getBytes());
-            System.out.println("DES加密：" + new String(decrypt));
+            //3.解密
+            decrypt = cipher.doFinal(input);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return decrypt;
     }
 }

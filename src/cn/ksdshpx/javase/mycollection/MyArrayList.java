@@ -36,6 +36,24 @@ public class MyArrayList<E> {
         elements[size++] = element;
     }
 
+    public void remove(int index) {
+        checkRange(index);
+        int movedCount = elements.length - index - 1;
+        if (movedCount > 0) {
+            System.arraycopy(elements, index + 1, elements, index, movedCount);
+        }
+        elements[--size] = null;
+    }
+
+    public void remove(E element) {
+        for (int i = 0; i < elements.length; i++) {
+            if (elements[i].equals(element)) {
+                remove(i);
+                return;
+            }
+        }
+    }
+
     public void checkRange(int index) {
         if (index < 0 || index > size - 1) {
             throw new RuntimeException("索引值不合法:" + index);
@@ -72,6 +90,9 @@ public class MyArrayList<E> {
             arrayList.add("sxt" + i);
         }
         System.out.println(arrayList.get(99));
+        System.out.println(arrayList);
+        arrayList.remove(3);
+        arrayList.remove("sxt11");
         System.out.println(arrayList);
     }
 }

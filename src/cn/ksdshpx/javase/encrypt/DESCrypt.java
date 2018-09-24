@@ -5,6 +5,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import java.security.Key;
 import java.security.spec.KeySpec;
+import java.util.Base64;
 
 /**
  * Create with IntelliJ IDEA
@@ -50,7 +51,7 @@ public class DESCrypt {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return encrypt;
+        return Base64.getEncoder().encode(encrypt);
     }
 
     /**
@@ -72,7 +73,7 @@ public class DESCrypt {
             Key key = secretKeyFactory.generateSecret(keySpec);//秘钥对象
             cipher.init(Cipher.DECRYPT_MODE, key);
             //3.解密
-            decrypt = cipher.doFinal(input);
+            decrypt = cipher.doFinal(Base64.getDecoder().decode(input));
         } catch (Exception e) {
             e.printStackTrace();
         }

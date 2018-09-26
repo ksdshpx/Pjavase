@@ -8,7 +8,7 @@ import java.util.Set;
  * Create by peng.x
  * Date: 2018/9/26
  * Time: 14:15
- * Description:Systemo类常用方法
+ * Description:System类常用方法
  */
 public class SystemDemo {
     public static void main(String[] args) {

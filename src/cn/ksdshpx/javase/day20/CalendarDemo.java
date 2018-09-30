@@ -12,6 +12,12 @@ import java.util.Calendar;
 public class CalendarDemo {
     public static void main(String[] args) {
         Calendar c = Calendar.getInstance();
+        c.set(2018, 8, 8);
+        c.add(Calendar.YEAR, -2);
+        showDate(c);
+    }
+
+    private static void showDate(Calendar c) {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH) + 1;
         int day = c.get(Calendar.DAY_OF_MONTH);

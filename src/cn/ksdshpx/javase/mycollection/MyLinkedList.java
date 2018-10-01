@@ -37,6 +37,26 @@ public class MyLinkedList {
             last.next = node;
             last = node;
         }
+        size++;
+    }
+
+    public Object get(int index) {
+        if (index < 0 || index > size - 1) {
+            throw new RuntimeException("索引值不合法:" + index);
+        }
+        Node tmp = null;
+        if (index <= (size >> 1)) {
+            tmp = first;
+            for (int i = 0; i < index; i++) {
+                tmp = tmp.next;
+            }
+        } else {
+            tmp = last;
+            for (int i = size - 1; i > index; i++) {
+                tmp = tmp.previous;
+            }
+        }
+        return tmp.data;
     }
 
     @Override
@@ -57,6 +77,10 @@ public class MyLinkedList {
         linkedList.add("a");
         linkedList.add("b");
         linkedList.add("c");
+        linkedList.add("d");
+        linkedList.add("e");
+        linkedList.add("f");
         System.out.println(linkedList);
+        System.out.println(linkedList.get(6));
     }
 }

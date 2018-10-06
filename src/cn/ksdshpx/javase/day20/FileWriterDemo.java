@@ -11,9 +11,21 @@ import java.io.IOException;
  * Description:字符输出流FileWriter
  */
 public class FileWriterDemo {
-    public static void main(String[] args) throws IOException {
-        FileWriter fileWriter = new FileWriter("io.txt",true);
-        fileWriter.write("abc" + System.getProperty("line.separator") + "de");
-        fileWriter.close();
+    public static void main(String[] args) {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("io.txt", true);
+            fileWriter.write("abc" + System.getProperty("line.separator") + "de");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

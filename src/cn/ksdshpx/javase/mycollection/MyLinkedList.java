@@ -7,7 +7,7 @@ package cn.ksdshpx.javase.mycollection;
  * Time: 11:57
  * Description:自定义LinkedList
  */
-public class MyLinkedList {
+public class MyLinkedList<E> {
     public class Node {
         private Node previous;
         private Object data;
@@ -26,8 +26,8 @@ public class MyLinkedList {
     private Node last;
     private int size;
 
-    public void add(Object data) {
-        Node node = new Node(data);
+    public void add(E element) {
+        Node node = new Node(element);
         if (first == null) {//第一次添加
             first = node;
             last = node;
@@ -40,11 +40,11 @@ public class MyLinkedList {
         size++;
     }
 
-    public void insert(int index, Object data) {
+    public void insert(int index, E element) {
         if (index < 0 || index > size) {
             throw new RuntimeException("索引值不合法:" + index);
         }
-        Node newNode = new Node(data);
+        Node newNode = new Node(element);
         Node nextNode = getNode(index);
         Node preNode = nextNode.previous;
         if (index == size) {
@@ -67,10 +67,10 @@ public class MyLinkedList {
         size++;
     }
 
-    public Object get(int index) {
+    public E get(int index) {
         checkIndex(index);
         Node tmp = getNode(index);
-        return tmp != null ? tmp.data : null;
+        return tmp != null ? (E) tmp.data : null;
     }
 
     private void checkIndex(int index) {

@@ -12,8 +12,8 @@ import java.io.IOException;
  */
 public class FileWriterDemo {
     public static void main(String[] args) throws IOException {
-        FileWriter fileWriter = new FileWriter("io.txt");
-        fileWriter.write("abcde");
+        FileWriter fileWriter = new FileWriter("io.txt",true);
+        fileWriter.write("abc" + System.getProperty("line.separator") + "de");
         fileWriter.close();
     }
 }

@@ -40,6 +40,33 @@ public class MyLinkedList {
         size++;
     }
 
+    public void insert(int index, Object data) {
+        if (index < 0 || index > size) {
+            throw new RuntimeException("索引值不合法:" + index);
+        }
+        Node newNode = new Node(data);
+        Node nextNode = getNode(index);
+        Node preNode = nextNode.previous;
+        if (index == size) {
+            preNode = getNode(index - 1);
+            last = newNode;
+            preNode.next = newNode;
+            newNode.previous = preNode;
+        } else {
+            if (preNode != null) {
+                preNode.next = newNode;
+                newNode.previous = preNode;
+                newNode.next = nextNode;
+                nextNode.previous = newNode;
+            } else {
+                first = newNode;
+                newNode.next = nextNode;
+                nextNode.previous = newNode;
+            }
+        }
+        size++;
+    }
+
     public Object get(int index) {
         checkIndex(index);
         Node tmp = getNode(index);
@@ -114,6 +141,14 @@ public class MyLinkedList {
         linkedList.remove(0);
         System.out.println(linkedList);
         linkedList.remove(3);
+        System.out.println(linkedList);
+        linkedList.insert(1, "中国");
+        System.out.println(linkedList);
+        linkedList.insert(0, "编程");
+        System.out.println(linkedList);
+        linkedList.insert(5, "上期技术");
+        System.out.println(linkedList);
+        linkedList.insert(5, "中金所");
         System.out.println(linkedList);
     }
 }

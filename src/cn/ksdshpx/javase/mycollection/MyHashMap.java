@@ -49,6 +49,20 @@ public class MyHashMap {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("{");
+        for (int i = 0; i < table.length; i++) {
+            Node node = table[i];
+            while (node != null) {
+                stringBuilder.append(node.key + ":" + node.value + ",");
+                node = node.next;
+            }
+        }
+        stringBuilder.setCharAt(stringBuilder.length() - 1, '}');
+        return stringBuilder.toString();
+    }
+
     private int myHash(int h, int length) {
         return h & (length - 1);
     }

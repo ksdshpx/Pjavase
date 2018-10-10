@@ -22,6 +22,21 @@ public class MyHashMap {
         this.table = new Node[16];
     }
 
+    public Object get(Object key) {
+        Object value = null;
+        int hash = myHash(key.hashCode(), table.length);
+        Node node = table[hash];
+        while (node != null) {
+            if(node.key.equals(key)){
+                value = node.value;
+                break;
+            }else{
+                node = node.next;
+            }
+        }
+        return value;
+    }
+
     public void put(Object key, Object value) {
         Node newNode = new Node();
         newNode.hash = myHash(key.hashCode(), table.length);
@@ -77,5 +92,6 @@ public class MyHashMap {
         hashMap.put(69, "ff");
         hashMap.put(85, "ee");
         System.out.println(hashMap);
+        System.out.println(hashMap.get(20));
     }
 }

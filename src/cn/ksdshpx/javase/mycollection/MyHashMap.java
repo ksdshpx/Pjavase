@@ -7,11 +7,11 @@ package cn.ksdshpx.javase.mycollection;
  * Time: 19:54
  * Description:自定义HashMap
  */
-public class MyHashMap {
-    public class Node {
+public class MyHashMap<K,V> {
+    public class Node<K,V> {
         private int hash;
-        private Object key;
-        private Object value;
+        private K key;
+        private V value;
         private Node next;
     }
 
@@ -22,22 +22,22 @@ public class MyHashMap {
         this.table = new Node[16];
     }
 
-    public Object get(Object key) {
-        Object value = null;
+    public V get(K key) {
+        V value = null;
         int hash = myHash(key.hashCode(), table.length);
         Node node = table[hash];
         while (node != null) {
-            if(node.key.equals(key)){
-                value = node.value;
+            if (node.key.equals(key)) {
+                value = (V)node.value;
                 break;
-            }else{
+            } else {
                 node = node.next;
             }
         }
         return value;
     }
 
-    public void put(Object key, Object value) {
+    public void put(K key, V value) {
         Node newNode = new Node();
         newNode.hash = myHash(key.hashCode(), table.length);
         newNode.key = key;
@@ -47,6 +47,7 @@ public class MyHashMap {
         boolean keyRepeated = false;
         if (tmp == null) {//数组元素为空，直接将新节点放进去
             table[newNode.hash] = newNode;
+            size++;
         } else {//数组元素不为空，遍历对应链表
             while (tmp != null) {
                 if (tmp.key.equals(key)) {//键重复，需要覆盖
@@ -60,6 +61,7 @@ public class MyHashMap {
             }
             if (!keyRepeated) {
                 lastNode.next = newNode;
+                size++;
             }
         }
     }
@@ -83,7 +85,7 @@ public class MyHashMap {
     }
 
     public static void main(String[] args) {
-        MyHashMap hashMap = new MyHashMap();
+        MyHashMap<Integer,String> hashMap = new MyHashMap<>();
         hashMap.put(10, "aa");
         hashMap.put(20, "bb");
         hashMap.put(30, "cc");

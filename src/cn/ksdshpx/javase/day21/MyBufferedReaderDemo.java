@@ -1,6 +1,5 @@
-package cn.ksdshpx.javase.day20;
+package cn.ksdshpx.javase.day21;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -9,13 +8,13 @@ import java.io.IOException;
  * Create by peng.x
  * Date: 2018/12/9
  * Time: 10:55
- * Description:字符读取缓冲流
+ * Description:自定义字符读取缓冲流
  */
-public class BufferedReaderDemo {
+public class MyBufferedReaderDemo {
     public static void main(String[] args) {
-        BufferedReader bufferedReader = null;
+        MyBufferedReader bufferedReader = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader("d:\\SystemDemo.java"));
+            bufferedReader = new MyBufferedReader(new FileReader("d:\\SystemDemo.java"));
             String line = null;
             while ((line = bufferedReader.readLine()) != null) {
                 System.out.println(line);

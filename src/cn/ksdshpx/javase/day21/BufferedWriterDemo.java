@@ -1,4 +1,4 @@
-package cn.ksdshpx.javase.day20;
+package cn.ksdshpx.javase.day21;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

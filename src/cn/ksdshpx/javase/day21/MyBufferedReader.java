@@ -1,28 +1,28 @@
 package cn.ksdshpx.javase.day21;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 
 /**
  * Create with IntelliJ IDEA
  * Create by peng.x
  * Date: 2018/12/9
  * Time: 16:28
- * Description:自定义BufferedReader
+ * Description:自定义BufferedReader（使用装饰者模式）
  */
-public class MyBufferedReader {
-    private FileReader fileReader;
+public class MyBufferedReader extends Reader{
+    private Reader reader;
     private char[] buf = new char[1024];
     private int pos = 0;
     private int count = 0;
 
-    public MyBufferedReader(FileReader fileReader) {
-        this.fileReader = fileReader;
+    public MyBufferedReader(Reader reader) {
+        this.reader = reader;
     }
 
     public int read() throws IOException {
         if (count == 0) {
-            count = fileReader.read(buf);
+            count = reader.read(buf);
             pos = 0;
         }
         if (count < 0) {
@@ -50,6 +50,11 @@ public class MyBufferedReader {
     }
 
     public void close() throws IOException {
-        fileReader.close();
+        reader.close();
+    }
+
+    @Override
+    public int read(char[] cbuf, int off, int len) throws IOException {
+        return 0;
     }
 }

@@ -21,7 +21,7 @@ public class FileInputStreamOutputStreamDemo {
             int len = 0;
             byte[] buf = new byte[1024];
             while ((len = fis.read(buf)) != -1) {
-                fos.write(buf);
+                fos.write(buf, 0, len);
             }
         } catch (IOException e) {
             e.printStackTrace();

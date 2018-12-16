@@ -13,19 +13,36 @@ import java.util.Date;
  * Description:文件对象的常用方法
  */
 public class FileMethodDemo {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         //1.文件对象的获取功能
         //getDemo();
         //2.文件的创建与删除
-        createAndDeleteDemo();
+        //createAndDeleteDemo();
+        //3.系统根目录以及容量获取
+        listRootsDemo();
+        printFileSpace();
+    }
+
+    private static void printFileSpace() {
+        File file = new File("d:\\");
+        System.out.println("getFreeSpace:" + file.getFreeSpace());
+        System.out.println("getTotalSpace:" + file.getTotalSpace());
+        System.out.println("getUsableSpace:" + file.getUsableSpace());
+    }
+
+    private static void listRootsDemo() {
+        File[] files = File.listRoots();
+        for (File file : files) {
+            System.out.println(file);
+        }
     }
 
     private static void createAndDeleteDemo() throws IOException {
         File file = new File("d:\\aaa.txt");
-        if(!file.exists()){
+        if (!file.exists()) {
             file.createNewFile();
         }
-        if(file.exists()){
+        if (file.exists()) {
             file.delete();
         }
     }
@@ -41,8 +58,8 @@ public class FileMethodDemo {
         //输出文件的父目录
         System.out.println("文件的父目录：" + file.getParent());//D:\icode\Pjavase\src\cn\ksdshpx\javase\day22
         //输出文件大小
-        System.out.println("文件的大小："+file.length());
+        System.out.println("文件的大小：" + file.length());
         //输出文件最后修改时间
-        System.out.println("文件最后修改时间："+new SimpleDateFormat("yyyy-MM-dd hh:mm:ss SSS").format(new Date(file.lastModified())));
+        System.out.println("文件最后修改时间：" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss SSS").format(new Date(file.lastModified())));
     }
 }

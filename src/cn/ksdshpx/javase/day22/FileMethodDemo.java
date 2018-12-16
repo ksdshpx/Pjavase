@@ -1,6 +1,7 @@
 package cn.ksdshpx.javase.day22;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,12 +13,24 @@ import java.util.Date;
  * Description:文件对象的常用方法
  */
 public class FileMethodDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         //1.文件对象的获取功能
-        getDemo();
+        //getDemo();
+        //2.文件的创建与删除
+        createAndDeleteDemo();
     }
 
-    public static void getDemo() {
+    private static void createAndDeleteDemo() throws IOException {
+        File file = new File("d:\\aaa.txt");
+        if(!file.exists()){
+            file.createNewFile();
+        }
+        if(file.exists()){
+            file.delete();
+        }
+    }
+
+    private static void getDemo() {
         File file = new File("D:\\icode\\Pjavase\\src\\cn\\ksdshpx\\javase\\day22\\SystemInDemo.java");
         //输出文件的名称
         System.out.println("文件名称：" + file.getName());//SystemInDemo.java

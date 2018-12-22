@@ -1,7 +1,6 @@
 package cn.ksdshpx.javase.day23;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 import java.util.Set;
 
@@ -19,7 +18,34 @@ public class PropertiesDemo {
         // list方法（调试程序用）
         //demo_2();
         // store方法
-        demo_3();
+        //demo_3();
+        // load方法
+        //domo_4();
+        //自定义load方法
+        demo_5();
+    }
+
+    private static void demo_5() throws IOException {
+        Properties props = new Properties();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("D:\\info.txt"));
+        String line = null;
+        while ((line = bufferedReader.readLine()) != null) {
+            if (!line.contains("=")) {
+                continue;
+            }
+            String[] arr = line.split("=");
+            props.setProperty(arr[0], arr[1]);
+        }
+        props.list(System.out);
+        bufferedReader.close();
+    }
+
+    private static void domo_4() throws IOException {
+        Properties props = new Properties();
+        FileInputStream inputStream = new FileInputStream("D:\\info.txt");
+        props.load(inputStream);
+        props.list(System.out);
+        inputStream.close();
     }
 
     private static void demo_3() throws IOException {

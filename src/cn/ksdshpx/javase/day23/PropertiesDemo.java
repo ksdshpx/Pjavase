@@ -13,7 +13,14 @@ import java.util.Set;
 public class PropertiesDemo {
     public static void main(String[] args) {
         // 存、取、遍历方法
-        demo_1();
+        //demo_1();
+        // list方法（调试程序用）
+        demo_2();
+    }
+
+    private static void demo_2() {
+        Properties props = System.getProperties();
+        props.list(System.out);
     }
 
     private static void demo_1() {

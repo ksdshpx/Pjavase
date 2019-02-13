@@ -10,7 +10,8 @@ import java.io.Serializable;
  * Description:被序列化的对象
  */
 public class Person implements Serializable{
-    private String name;
+    private static final long serialVersionUID = 3020305912544579026L;
+    public String name;
     private Integer age;
 
     public Person() {
